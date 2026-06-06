@@ -2,9 +2,21 @@
    PRAVEEN.EDITS — Portfolio JavaScript
 ═══════════════════════════════════════════════════════════ */
 
+// ─── Tab switching (global so inline onclick can reach it) ──
+function switchTab(target) {
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    b.classList.toggle('tab-active', b.dataset.tab === target);
+  });
+  document.querySelectorAll('.tab-content').forEach(tc => {
+    tc.classList.remove('tab-active-content');
+  });
+  const content = document.getElementById('tab-' + target);
+  if (content) content.classList.add('tab-active-content');
+}
+
 document.addEventListener('DOMContentLoaded', () => {
 
-  // ─── Navbar scroll ─────────────────────────────────────
+  // ─── Navbar scroll ───────────────────────────────────────
   const navbar = document.getElementById('navbar');
   if (navbar) {
     window.addEventListener('scroll', () => {
@@ -12,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ─── Mobile menu ───────────────────────────────────────
+  // ─── Mobile menu ─────────────────────────────────────────
   const burger   = document.querySelector('.burger');
   const navLinks = document.querySelector('.nav-links');
   if (burger && navLinks) {
@@ -25,22 +37,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ─── Tab switching ─────────────────────────────────────
-  const tabBtns    = document.querySelectorAll('.tab-btn');
-  const tabContents = document.querySelectorAll('.tab-content');
-
-  tabBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const target = btn.dataset.tab;
-      tabBtns.forEach(b => b.classList.remove('tab-active'));
-      btn.classList.add('tab-active');
-      tabContents.forEach(tc => tc.classList.remove('tab-active-content'));
-      const targetContent = document.getElementById(`tab-${target}`);
-      if (targetContent) targetContent.classList.add('tab-active-content');
-    });
+  // ─── Tab buttons (also wired via data-tab for safety) ────
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => switchTab(btn.dataset.tab));
   });
 
-  // ─── Hero video player simulation ──────────────────────
+  // ─── Hero video player simulation ────────────────────────
   const ctrlPlay     = document.getElementById('ctrlPlay');
   const playIcon     = document.getElementById('playIcon');
   const pauseIcon    = document.getElementById('pauseIcon');
@@ -72,16 +74,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function startPlay() {
       isPlaying = true;
-      if (playIcon)    playIcon.style.display  = 'none';
-      if (pauseIcon)   pauseIcon.style.display = 'block';
+      if (playIcon)  playIcon.style.display  = 'none';
+      if (pauseIcon) pauseIcon.style.display = 'block';
       playOverlay.classList.add('hidden');
       animFrame = requestAnimationFrame(tick);
     }
 
     function stopPlay() {
       isPlaying = false;
-      if (playIcon)    playIcon.style.display  = 'block';
-      if (pauseIcon)   pauseIcon.style.display = 'none';
+      if (playIcon)  playIcon.style.display  = 'block';
+      if (pauseIcon) pauseIcon.style.display = 'none';
       playOverlay.classList.remove('hidden');
       cancelAnimationFrame(animFrame);
     }
@@ -90,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
     playOverlay.addEventListener('click', () => isPlaying ? stopPlay() : startPlay());
   }
 
-  // ─── Contact form ───────────────────────────────────────
+  // ─── Contact form ─────────────────────────────────────────
   const contactForm = document.getElementById('contactForm');
   const submitBtn   = document.getElementById('submitBtn');
   const formSuccess = document.getElementById('formSuccess');
@@ -114,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ─── Active nav link on scroll ─────────────────────────
+  // ─── Active nav link on scroll ────────────────────────────
   const sections   = document.querySelectorAll('section[id]');
   const navAnchors = document.querySelectorAll('.nav-links a[href^="#"]');
 
@@ -137,7 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
     sections.forEach(s => sectionObserver.observe(s));
   }
 
-  // ─── Back to top ───────────────────────────────────────
+  // ─── Back to top ──────────────────────────────────────────
   const backTop = document.getElementById('backTop');
   if (backTop) {
     backTop.addEventListener('click', (e) => {
