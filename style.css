@@ -648,8 +648,8 @@ button { cursor: pointer; border: none; background: none; }
 .tab-btn:hover:not(.tab-active) { color: var(--text-white); }
 
 /* — Tab content — */
-.tab-content { display: none; }
-.tab-content.tab-active-content { display: block; }
+.tab-content { display: none !important; }
+.tab-content.tab-active-content { display: block !important; }
 
 /* — Work grid — */
 .work-grid {
