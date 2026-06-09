@@ -2,16 +2,12 @@
    PRAVEEN.EDITS — Portfolio JavaScript
 ═══════════════════════════════════════════════════════════ */
 
-// ─── Tab switching (global so inline on click can reach it) ──
-function switchTab(target) {
-  document.querySelectorAll('.tab-btn').forEach(b => {
-    b.classList.toggle('tab-active', b.dataset.tab === target);
-  });
-  document.querySelectorAll('.tab-content').forEach(tc => {
-    tc.classList.remove('tab-active-content');
-  });
-  const content = document.getElementById('tab-' + target);
-  if (content) content.classList.add('tab-active-content');
+// ─── Tab switching (global so inline onclick can reach it) ──
+function switchTab(btn, panelId) {
+  document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('tab-active'); });
+  btn.classList.add('tab-active');
+  document.querySelectorAll('.tab-pane').forEach(function(p){ p.style.display = 'none'; });
+  document.getElementById(panelId).style.display = 'block';
 }
 
 document.addEventListener('DOMContentLoaded', () => {
