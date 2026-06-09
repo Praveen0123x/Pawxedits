@@ -2,7 +2,7 @@
    PRAVEEN.EDITS — Portfolio JavaScript
 ═══════════════════════════════════════════════════════════ */
 
-// ─── Tab switching (global so inline onclick can reach it) ──
+// ─── Tab switching (global so inline on click can reach it) ──
 function switchTab(target) {
   document.querySelectorAll('.tab-btn').forEach(b => {
     b.classList.toggle('tab-active', b.dataset.tab === target);
